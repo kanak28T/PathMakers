@@ -1,0 +1,982 @@
+[
+  {
+    "question_id": "q_001",
+    "question": "Which statement best describes Active Learning?",
+    "skill_tag": "active learning",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_002",
+    "question": "Which situation best demonstrates the practical use of Active Listening?",
+    "skill_tag": "active listening",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_003",
+    "question": "Which approach demonstrates advanced ability in Complex Problem Solving?",
+    "skill_tag": "complex problem solving",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_004",
+    "question": "Which statement best describes Coordination?",
+    "skill_tag": "coordination",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_005",
+    "question": "Which situation best demonstrates the practical use of Critical Thinking?",
+    "skill_tag": "critical thinking",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_006",
+    "question": "Which approach demonstrates advanced ability in Equipment Maintenance?",
+    "skill_tag": "equipment maintenance",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_007",
+    "question": "Which statement best describes Equipment Selection?",
+    "skill_tag": "equipment selection",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_008",
+    "question": "Which situation best demonstrates the practical use of Installation?",
+    "skill_tag": "installation",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_009",
+    "question": "Which approach demonstrates advanced ability in Instructing?",
+    "skill_tag": "instructing",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_010",
+    "question": "Which statement best describes Judgment and Decision Making?",
+    "skill_tag": "judgment and decision making",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_011",
+    "question": "Which situation best demonstrates the practical use of Learning Strategies?",
+    "skill_tag": "learning strategies",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_012",
+    "question": "Which approach demonstrates advanced ability in Management of Financial Resources?",
+    "skill_tag": "management of financial resources",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_013",
+    "question": "Which statement best describes Management of Material Resources?",
+    "skill_tag": "management of material resources",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_014",
+    "question": "Which situation best demonstrates the practical use of Management of Personnel Resources?",
+    "skill_tag": "management of personnel resources",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_015",
+    "question": "Which approach demonstrates advanced ability in Mathematics?",
+    "skill_tag": "mathematics",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_016",
+    "question": "Which statement best describes Monitoring?",
+    "skill_tag": "monitoring",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_017",
+    "question": "Which situation best demonstrates the practical use of Negotiation?",
+    "skill_tag": "negotiation",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_018",
+    "question": "Which approach demonstrates advanced ability in Operation and Control?",
+    "skill_tag": "operation and control",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_019",
+    "question": "Which statement best describes Operations Analysis?",
+    "skill_tag": "operations analysis",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_020",
+    "question": "Which situation best demonstrates the practical use of Operations Monitoring?",
+    "skill_tag": "operations monitoring",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_021",
+    "question": "Which approach demonstrates advanced ability in Persuasion?",
+    "skill_tag": "persuasion",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_022",
+    "question": "Which statement best describes Programming?",
+    "skill_tag": "programming",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_023",
+    "question": "Which situation best demonstrates the practical use of Quality Control Analysis?",
+    "skill_tag": "quality control analysis",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_024",
+    "question": "Which approach demonstrates advanced ability in Reading Comprehension?",
+    "skill_tag": "reading comprehension",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_025",
+    "question": "Which statement best describes Repairing?",
+    "skill_tag": "repairing",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_026",
+    "question": "Which situation best demonstrates the practical use of Science?",
+    "skill_tag": "science",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_027",
+    "question": "Which approach demonstrates advanced ability in Service Orientation?",
+    "skill_tag": "service orientation",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_028",
+    "question": "Which statement best describes Social Perceptiveness?",
+    "skill_tag": "social perceptiveness",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_029",
+    "question": "Which situation best demonstrates the practical use of Speaking?",
+    "skill_tag": "speaking",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_030",
+    "question": "Which approach demonstrates advanced ability in Systems Analysis?",
+    "skill_tag": "systems analysis",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_031",
+    "question": "Which statement best describes Systems Evaluation?",
+    "skill_tag": "systems evaluation",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_032",
+    "question": "Which situation best demonstrates the practical use of Technology Design?",
+    "skill_tag": "technology design",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_033",
+    "question": "Which approach demonstrates advanced ability in Time Management?",
+    "skill_tag": "time management",
+    "difficulty": "advanced",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill strategically to evaluate complex situations and improve outcomes.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Avoiding difficult situations involving the skill.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Using the skill without considering the problem context.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Using an unrelated technique instead.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_034",
+    "question": "Which statement best describes Troubleshooting?",
+    "skill_tag": "troubleshooting",
+    "difficulty": "beginner",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "It is a fundamental skill used to perform tasks related to this area.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "It is only useful for financial accounting.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "It is unrelated to professional work.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "It is exclusively used for hardware repair.",
+        "is_correct": false
+      }
+    ]
+  },
+  {
+    "question_id": "q_035",
+    "question": "Which situation best demonstrates the practical use of Writing?",
+    "skill_tag": "writing",
+    "difficulty": "intermediate",
+    "options": [
+      {
+        "option_id": "A",
+        "text": "Applying the skill appropriately to solve a work-related problem.",
+        "is_correct": true
+      },
+      {
+        "option_id": "B",
+        "text": "Ignoring the requirements of the task.",
+        "is_correct": false
+      },
+      {
+        "option_id": "C",
+        "text": "Avoiding the use of the skill completely.",
+        "is_correct": false
+      },
+      {
+        "option_id": "D",
+        "text": "Performing an unrelated activity.",
+        "is_correct": false
+      }
+    ]
+  }
+]
