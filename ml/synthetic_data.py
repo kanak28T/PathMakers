@@ -1,3 +1,22 @@
+"""
+PathMakers — Synthetic Training Data Generator
+
+DISTRIBUTION_NOTES:
+- gap_severity follows a Beta(2, 3) distribution.
+- prereq_satisfaction is correlated negatively with gap_severity
+  and includes Gaussian noise, then is clipped to [0, 1].
+- tag_similarity follows a Beta(2, 2) distribution.
+- course_rating follows a Normal(4.2, 0.5) distribution and is
+  clipped to the range [1, 5].
+- difficulty_match follows a Beta(3, 2) distribution.
+- true_fit_score is generated from a weighted combination of the
+  features with an additional prerequisite-readiness penalty and
+  Gaussian noise.
+
+The distributions are designed to represent correlated
+learner-course suitability features for the PathMak ers ML pipeline.
+"""
+
 from pathlib import Path
 
 import numpy as np
