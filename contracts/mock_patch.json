@@ -1,0 +1,60 @@
+{
+  "_comment": "PathMakers — Canonical Phase 4 SSE diff payload.",
+  "_contract": "Validates against contracts/schemas.py::RoadmapPatchEvent",
+  "_usage": [
+    "Served by GET /api/roadmap/patch/mock",
+    "Person R (frontend) builds the SSE listener and graph merge logic against this shape.",
+    "Person K (backend) streams this exact structure from /api/roadmap/stream/{learner_id}.",
+    "Scenario: learner mock_learner_001 failed the quiz at node c_004 (ML Specialization)."
+  ],
+
+  "event": "graph_patch",
+  "learner_id": "mock_learner_001",
+  "trigger": "quiz_failure",
+  "timestamp": "2026-08-26T04:32:17Z",
+
+  "summary": "Quiz failure at 'Machine Learning Specialization' detected. Added 1 remediation node (Statistics Foundations). Downstream path preserved.",
+
+  "added_nodes": [
+    {
+      "id": "c_007",
+      "label": "Statistics & Probability Foundations",
+      "status": "pending",
+      "position": { "x": 500, "y": 560 }
+    }
+  ],
+
+  "removed_node_ids": [],
+
+  "updated_nodes": [
+    {
+      "id": "c_004",
+      "label": "Machine Learning Specialization",
+      "status": "failed",
+      "position": { "x": 250, "y": 560 }
+    }
+  ],
+
+  "added_edges": [
+    {
+      "id": "c_007__c_004",
+      "source": "c_007",
+      "target": "c_004",
+      "type": "remediation",
+      "animated": true,
+      "label": "Remediation path"
+    },
+    {
+      "id": "c_002__c_007",
+      "source": "c_002",
+      "target": "c_007",
+      "type": "remediation",
+      "animated": true,
+      "label": "Branches from Math course"
+    }
+  ],
+
+  "removed_edge_ids": [],
+
+  "remediation_path": ["c_007", "c_004"]
+}

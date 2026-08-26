@@ -1,0 +1,223 @@
+{
+  "_comment": "PathMakers — Canonical mock roadmap payload for an AI/ML Engineer career path.",
+  "_contract": "Validates against contracts/schemas.py::RoadmapGraphResponse",
+  "_usage": "Served by GET /api/roadmap/mock  and used by Person R (frontend) as the stable build target.",
+
+  "learner_id": "mock_learner_001",
+  "target_role": "ai_ml_engineer",
+  "total_hours": 113.0,
+  "generated_at": "2026-08-26T00:00:00Z",
+
+  "topological_order": [
+    "c_001",
+    "c_002",
+    "c_003",
+    "c_004",
+    "c_005",
+    "c_006"
+  ],
+
+  "nodes": [
+    {
+      "id": "c_001",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 50 },
+      "data": {
+        "course_id": "c_001",
+        "title": "Python for Everybody",
+        "platform": "Coursera",
+        "difficulty": "beginner",
+        "duration_hours": 20.0,
+        "skill_tags": ["python", "programming_fundamentals", "data_structures"],
+        "score": 0.95,
+        "shap_values": {
+          "gap_severity": 0.35,
+          "tag_similarity": 0.28,
+          "course_rating": 0.14,
+          "difficulty_match": 0.12,
+          "prereq_satisfaction": 0.06
+        },
+        "explanation_text": "Ranked #1 because your Python gap_severity is critical (0.87) and this course directly closes it.",
+        "url": "https://www.coursera.org/specializations/python",
+        "status": "pending",
+        "is_unlocked": true
+      }
+    },
+    {
+      "id": "c_002",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 220 },
+      "data": {
+        "course_id": "c_002",
+        "title": "Mathematics for Machine Learning",
+        "platform": "Coursera",
+        "difficulty": "intermediate",
+        "duration_hours": 18.0,
+        "skill_tags": ["linear_algebra", "calculus", "statistics", "probability"],
+        "score": 0.91,
+        "shap_values": {
+          "gap_severity": 0.30,
+          "tag_similarity": 0.31,
+          "course_rating": 0.16,
+          "difficulty_match": 0.14,
+          "prereq_satisfaction": 0.00
+        },
+        "explanation_text": "Strong tag_similarity (0.92) with ai_ml_engineer benchmark; math foundations unlock all downstream ML courses.",
+        "url": "https://www.coursera.org/specializations/mathematics-machine-learning",
+        "status": "pending",
+        "is_unlocked": true
+      }
+    },
+    {
+      "id": "c_003",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 390 },
+      "data": {
+        "course_id": "c_003",
+        "title": "Data Analysis with Python & Pandas",
+        "platform": "Coursera",
+        "difficulty": "intermediate",
+        "duration_hours": 15.0,
+        "skill_tags": ["python", "pandas", "numpy", "data_wrangling", "eda"],
+        "score": 0.88,
+        "shap_values": {
+          "gap_severity": 0.22,
+          "tag_similarity": 0.33,
+          "course_rating": 0.18,
+          "difficulty_match": 0.11,
+          "prereq_satisfaction": 0.04
+        },
+        "explanation_text": "prereq_satisfaction improves to 1.0 after c_001; bridges Python fundamentals to ML data pipelines.",
+        "url": "https://www.coursera.org/learn/data-analysis-with-python",
+        "status": "pending",
+        "is_unlocked": false
+      }
+    },
+    {
+      "id": "c_004",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 560 },
+      "data": {
+        "course_id": "c_004",
+        "title": "Machine Learning Specialization",
+        "platform": "Coursera",
+        "difficulty": "intermediate",
+        "duration_hours": 33.0,
+        "skill_tags": ["supervised_learning", "unsupervised_learning", "regression", "classification", "neural_networks"],
+        "score": 0.93,
+        "shap_values": {
+          "gap_severity": 0.29,
+          "tag_similarity": 0.38,
+          "course_rating": 0.19,
+          "difficulty_match": 0.05,
+          "prereq_satisfaction": 0.02
+        },
+        "explanation_text": "Core ML algorithms course with highest tag_similarity (0.96) to ai_ml_engineer role benchmark.",
+        "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+        "status": "pending",
+        "is_unlocked": false
+      }
+    },
+    {
+      "id": "c_005",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 730 },
+      "data": {
+        "course_id": "c_005",
+        "title": "Deep Learning Specialization",
+        "platform": "Coursera",
+        "difficulty": "advanced",
+        "duration_hours": 17.0,
+        "skill_tags": ["deep_learning", "cnn", "rnn", "transformers", "tensorflow"],
+        "score": 0.85,
+        "shap_values": {
+          "gap_severity": 0.18,
+          "tag_similarity": 0.36,
+          "course_rating": 0.17,
+          "difficulty_match": 0.09,
+          "prereq_satisfaction": 0.05
+        },
+        "explanation_text": "difficulty_match drops slightly (0.72) indicating this is a stretch goal; unlocked only after c_004.",
+        "url": "https://www.coursera.org/specializations/deep-learning",
+        "status": "pending",
+        "is_unlocked": false
+      }
+    },
+    {
+      "id": "c_006",
+      "type": "courseNode",
+      "position": { "x": 250, "y": 900 },
+      "data": {
+        "course_id": "c_006",
+        "title": "MLOps: Machine Learning Operations",
+        "platform": "Coursera",
+        "difficulty": "advanced",
+        "duration_hours": 10.0,
+        "skill_tags": ["mlops", "model_deployment", "docker", "ci_cd", "monitoring"],
+        "score": 0.80,
+        "shap_values": {
+          "gap_severity": 0.14,
+          "tag_similarity": 0.29,
+          "course_rating": 0.20,
+          "difficulty_match": 0.10,
+          "prereq_satisfaction": 0.07
+        },
+        "explanation_text": "Final capstone node; course_rating (4.8) is the primary driver — closes the deployment gap for production roles.",
+        "url": "https://www.coursera.org/specializations/mlops-machine-learning-duke",
+        "status": "pending",
+        "is_unlocked": false
+      }
+    }
+  ],
+
+  "edges": [
+    {
+      "id": "c_001__c_003",
+      "source": "c_001",
+      "target": "c_003",
+      "type": "prerequisite",
+      "animated": false,
+      "label": "Python required"
+    },
+    {
+      "id": "c_002__c_004",
+      "source": "c_002",
+      "target": "c_004",
+      "type": "prerequisite",
+      "animated": false,
+      "label": "Math required"
+    },
+    {
+      "id": "c_003__c_004",
+      "source": "c_003",
+      "target": "c_004",
+      "type": "prerequisite",
+      "animated": false,
+      "label": "Data skills required"
+    },
+    {
+      "id": "c_004__c_005",
+      "source": "c_004",
+      "target": "c_005",
+      "type": "prerequisite",
+      "animated": false,
+      "label": "ML fundamentals required"
+    },
+    {
+      "id": "c_004__c_006",
+      "source": "c_004",
+      "target": "c_006",
+      "type": "recommended",
+      "animated": false,
+      "label": "Recommended before MLOps"
+    },
+    {
+      "id": "c_005__c_006",
+      "source": "c_005",
+      "target": "c_006",
+      "type": "recommended",
+      "animated": false,
+      "label": "Deep learning context helpful"
+    }
+  ]
+}
