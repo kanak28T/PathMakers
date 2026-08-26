@@ -1,127 +1,151 @@
 "use client";
 /**
  * components/CourseNode.tsx
- * Custom React Flow node for a single course in the learning roadmap.
- * Status drives border colour; locked nodes show a padlock overlay.
+ * roadmap.sh-inspired rectangular node with left accent bar.
+ * Light theme, clean typography, status-driven colour system.
  */
 
 import { memo } from "react";
 import { Handle, Position, type NodeProps, type Node } from "@xyflow/react";
-import { Lock, ExternalLink, Clock, BarChart2 } from "lucide-react";
+import { Lock, Clock, Zap } from "lucide-react";
 import type { RoadmapNodeData } from "@/lib/types";
 
-const STATUS_STYLES: Record<string, string> = {
-  pending: "border-slate-600 bg-slate-800",
-  in_progress: "border-blue-500 bg-blue-950 ring-2 ring-blue-500/40",
-  completed: "border-emerald-500 bg-emerald-950",
-  failed: "border-red-500 bg-red-950",
-  skipped: "border-yellow-500 bg-yellow-950 opacity-60",
+// ---- Status → visual treatment ----
+const STATUS_MAP: Record<
+  string,
+  { accent: string; bg: string; text: string; badge: string; badgeText: string }
+> = {
+  pending: {
+    accent: "bg-gray-300",
+    bg: "bg-white",
+    text: "text-gray-800",
+    badge: "bg-gray-100 text-gray-500",
+    badgeText: "Not started",
+  },
+  in_progress: {
+    accent: "bg-blue-500",
+    bg: "bg-blue-50",
+    text: "text-blue-900",
+    badge: "bg-blue-100 text-blue-700",
+    badgeText: "In progress",
+  },
+  completed: {
+    accent: "bg-emerald-500",
+    bg: "bg-emerald-50",
+    text: "text-emerald-900",
+    badge: "bg-emerald-100 text-emerald-700",
+    badgeText: "Done ✓",
+  },
+  failed: {
+    accent: "bg-red-500",
+    bg: "bg-red-50",
+    text: "text-red-900",
+    badge: "bg-red-100 text-red-700",
+    badgeText: "Failed",
+  },
+  skipped: {
+    accent: "bg-amber-400",
+    bg: "bg-amber-50",
+    text: "text-amber-900",
+    badge: "bg-amber-100 text-amber-700",
+    badgeText: "Skipped",
+  },
 };
 
-const DIFFICULTY_BADGE: Record<string, string> = {
-  beginner: "bg-emerald-700/60 text-emerald-200",
-  intermediate: "bg-blue-700/60 text-blue-200",
-  advanced: "bg-purple-700/60 text-purple-200",
+// ---- Difficulty ----
+const DIFF_MAP: Record<string, string> = {
+  beginner: "bg-emerald-100 text-emerald-700",
+  intermediate: "bg-blue-100 text-blue-700",
+  advanced: "bg-purple-100 text-purple-700",
 };
 
 type CourseNodeProps = NodeProps<Node<RoadmapNodeData>>;
 
 function CourseNode({ data, selected }: CourseNodeProps) {
-  const statusClass = STATUS_STYLES[data.status] ?? STATUS_STYLES.pending;
-  const diffClass =
-    DIFFICULTY_BADGE[data.difficulty] ?? DIFFICULTY_BADGE.intermediate;
+  const s = STATUS_MAP[data.status] ?? STATUS_MAP.pending;
+  const diff = DIFF_MAP[data.difficulty] ?? DIFF_MAP.intermediate;
+  const fitPct = Math.round(data.score * 100);
 
   return (
     <div
       className={`
-        relative w-56 rounded-xl border-2 p-3 shadow-lg transition-all duration-200
-        ${statusClass}
-        ${selected ? "ring-2 ring-indigo-400 ring-offset-1 ring-offset-slate-900" : ""}
-        ${!data.is_unlocked ? "opacity-50" : "hover:scale-[1.02] cursor-pointer"}
+        relative flex w-60 rounded-lg border overflow-hidden
+        shadow-sm transition-all duration-150 select-none
+        ${s.bg}
+        ${selected
+          ? "border-blue-500 shadow-md ring-2 ring-blue-200"
+          : "border-gray-200 hover:border-blue-400 hover:shadow-md"}
+        ${!data.is_unlocked ? "opacity-60" : "cursor-pointer"}
       `}
       role="button"
-      aria-label={`Course: ${data.title}, status: ${data.status}`}
+      aria-label={`${data.title} — ${s.badgeText}`}
       tabIndex={data.is_unlocked ? 0 : -1}
     >
-      {/* Locked overlay */}
-      {!data.is_unlocked && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-slate-900/60 z-10">
-          <Lock className="h-6 w-6 text-slate-400" aria-hidden />
+      {/* Left accent bar */}
+      <div className={`w-1.5 shrink-0 ${s.accent}`} />
+
+      {/* Content */}
+      <div className="flex-1 px-3 py-2.5 min-w-0">
+        <Handle
+          type="target"
+          position={Position.Top}
+          className="!border-gray-300 !bg-white !w-2.5 !h-2.5"
+        />
+
+        {/* Title row */}
+        <div className="flex items-start justify-between gap-1 mb-1.5">
+          <p className={`text-[13px] font-semibold leading-snug line-clamp-2 ${s.text}`}>
+            {data.title}
+          </p>
+          {!data.is_unlocked && (
+            <Lock className="h-3.5 w-3.5 shrink-0 text-gray-400 mt-0.5" aria-hidden />
+          )}
         </div>
-      )}
 
-      {/* Top handles */}
-      <Handle type="target" position={Position.Top} className="!bg-slate-500" />
+        {/* Tags row */}
+        <div className="flex items-center flex-wrap gap-1 mb-2">
+          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${diff}`}>
+            {data.difficulty}
+          </span>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
+            {data.platform}
+          </span>
+          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full ${s.badge}`}>
+            {s.badgeText}
+          </span>
+        </div>
 
-      {/* Header */}
-      <div className="flex items-start justify-between gap-1 mb-2">
-        <p className="text-sm font-semibold text-white leading-tight line-clamp-2">
-          {data.title}
-        </p>
-        {data.url && (
-          <a
-            href={data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="shrink-0 text-slate-400 hover:text-indigo-400 transition-colors"
-            aria-label={`Open ${data.title} on ${data.platform}`}
-          >
-            <ExternalLink className="h-4 w-4" />
-          </a>
-        )}
+        {/* Meta row */}
+        <div className="flex items-center gap-3 text-[11px] text-gray-500">
+          <span className="flex items-center gap-0.5">
+            <Clock className="h-3 w-3" aria-hidden />
+            {data.duration_hours}h
+          </span>
+          <span className="flex items-center gap-0.5">
+            <Zap className="h-3 w-3 text-amber-500" aria-hidden />
+            {fitPct}% fit
+          </span>
+        </div>
+
+        {/* Fit bar */}
+        <div className="mt-2 h-1 rounded-full bg-gray-200 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-blue-500 transition-all duration-500"
+            style={{ width: `${fitPct}%` }}
+            role="progressbar"
+            aria-valuenow={fitPct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          />
+        </div>
+
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          className="!border-gray-300 !bg-white !w-2.5 !h-2.5"
+        />
       </div>
-
-      {/* Badges row */}
-      <div className="flex items-center gap-1 flex-wrap mb-2">
-        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${diffClass}`}>
-          {data.difficulty}
-        </span>
-        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-slate-700 text-slate-300">
-          {data.platform}
-        </span>
-      </div>
-
-      {/* Meta row */}
-      <div className="flex items-center gap-3 text-xs text-slate-400">
-        <span className="flex items-center gap-1">
-          <Clock className="h-3 w-3" aria-hidden />
-          {data.duration_hours}h
-        </span>
-        <span className="flex items-center gap-1">
-          <BarChart2 className="h-3 w-3" aria-hidden />
-          {(data.score * 100).toFixed(0)}% fit
-        </span>
-      </div>
-
-      {/* Status dot */}
-      <div className="absolute top-2 right-2">
-        <StatusDot status={data.status} />
-      </div>
-
-      {/* Bottom handle */}
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        className="!bg-slate-500"
-      />
     </div>
-  );
-}
-
-function StatusDot({ status }: { status: string }) {
-  const colours: Record<string, string> = {
-    pending: "bg-slate-500",
-    in_progress: "bg-blue-400 animate-pulse",
-    completed: "bg-emerald-400",
-    failed: "bg-red-400",
-    skipped: "bg-yellow-400",
-  };
-  return (
-    <span
-      className={`block h-2 w-2 rounded-full ${colours[status] ?? colours.pending}`}
-      aria-hidden
-    />
   );
 }
 
