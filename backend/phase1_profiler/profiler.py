@@ -20,34 +20,50 @@ from contracts.schemas import (
 )
 
 
-# ------------------------------------------------------------
-# Paths
-# ------------------------------------------------------------
+# ============================================================
+# PATHS
+# ============================================================
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-QUESTIONS_FILE = BASE_DIR / "data" / "questions.json"
+
+QUESTIONS_FILE = (
+    BASE_DIR
+    / "data"
+    / "questions.json"
+)
 
 
-# ------------------------------------------------------------
-# Question loading
-# ------------------------------------------------------------
+# ============================================================
+# QUESTION LOADING
+# ============================================================
 
 def load_questions() -> list[dict]:
-    """Load diagnostic questions from questions.json."""
+    """
+    Load diagnostic questions from questions.json.
+    """
 
-    with open(QUESTIONS_FILE, "r", encoding="utf-8") as f:
+    with open(
+        QUESTIONS_FILE,
+        "r",
+        encoding="utf-8",
+    ) as f:
+
         return json.load(f)
 
 
 def get_question_count() -> int:
-    """Return the number of diagnostic questions."""
+    """
+    Return the number of diagnostic questions.
+    """
 
-    return len(load_questions())
+    return len(
+        load_questions()
+    )
 
 
-# ------------------------------------------------------------
-# Answer evaluation
-# ------------------------------------------------------------
+# ============================================================
+# ANSWER EVALUATION
+# ============================================================
 
 def evaluate_answer(
     question: dict,
@@ -56,25 +72,44 @@ def evaluate_answer(
     """
     Determine whether the selected option is correct.
 
-    The correct answer is read directly from questions.json.
+    The correct answer is read directly from
+    questions.json.
     """
 
-    selected_option = selected_option.upper().strip()
+    selected_option = (
+        str(selected_option)
+        .upper()
+        .strip()
+    )
 
-    for option in question["options"]:
+    for option in question.get(
+        "options",
+        [],
+    ):
 
-        if option["option_id"] == selected_option:
-            return bool(option["is_correct"])
+        if (
+            option.get("option_id")
+            == selected_option
+        ):
+
+            return bool(
+                option.get(
+                    "is_correct",
+                    False,
+                )
+            )
 
     raise ValueError(
-        f"Invalid option '{selected_option}' "
-        f"for question '{question['question_id']}'."
+        f"Invalid option "
+        f"'{selected_option}' "
+        f"for question "
+        f"'{question.get('question_id', '')}'."
     )
 
 
-# ------------------------------------------------------------
-# Diagnostic response builder
-# ------------------------------------------------------------
+# ============================================================
+# DIAGNOSTIC RESPONSE BUILDER
+# ============================================================
 
 def build_response(
     question: dict,
@@ -82,42 +117,62 @@ def build_response(
     time_spent_seconds: int,
 ) -> QuestionResponse:
     """
-    Convert a learner's selected option into a validated
-    QuestionResponse.
+    Convert a learner's selected option into
+    a validated QuestionResponse.
 
     is_correct is calculated automatically.
     """
 
+    selected_option = (
+        str(selected_option)
+        .upper()
+        .strip()
+    )
+
     is_correct = evaluate_answer(
-        question,
-        selected_option,
+        question=question,
+        selected_option=selected_option,
+    )
+
+    difficulty = DifficultyLevel(
+        question["difficulty"]
     )
 
     return QuestionResponse(
-        question_id=question["question_id"],
-        selected_option=selected_option.upper().strip(),
+        question_id=str(
+            question["question_id"]
+        ),
+        selected_option=selected_option,
         is_correct=is_correct,
-        difficulty=DifficultyLevel(question["difficulty"]),
-        skill_tag=question["skill_tag"],
-        time_spent_seconds=time_spent_seconds,
+        difficulty=difficulty,
+        skill_tag=str(
+            question["skill_tag"]
+        ).strip().lower(),
+        time_spent_seconds=max(
+            int(time_spent_seconds),
+            0,
+        ),
     )
 
 
-# ------------------------------------------------------------
-# Diagnostic scoring
-# ------------------------------------------------------------
+# ============================================================
+# SCORE DIAGNOSTIC
+# ============================================================
 
-def profile_learner(
+def score_diagnostic(
     learner: LearnerProfile,
     responses: list[QuestionResponse],
 ) -> DiagnosticResult:
     """
-    Generate a DiagnosticResult from learner responses.
+    Calculate the learner's diagnostic result.
 
-    A skill is considered:
+    Skill classification:
 
-        confirmed -> correct response
-        weak      -> incorrect response
+        confirmed_skills
+            Skills answered correctly.
+
+        weak_skills
+            Skills answered incorrectly.
 
     Overall score:
 
@@ -125,15 +180,28 @@ def profile_learner(
 
     Tier breakdown:
 
-        beginner / intermediate / advanced
+        beginner
+        intermediate
+        advanced
+
+    The returned object strictly follows the frozen
+    DiagnosticResult contract.
     """
 
     if not responses:
+
         raise ValueError(
-            "At least one diagnostic response is required."
+            "At least one diagnostic "
+            "response is required."
         )
 
-    total_questions = len(responses)
+    # --------------------------------------------------------
+    # Overall score
+    # --------------------------------------------------------
+
+    total_questions = len(
+        responses
+    )
 
     correct_count = sum(
         1
@@ -141,30 +209,47 @@ def profile_learner(
         if response.is_correct
     )
 
-    overall_score = correct_count / total_questions
+    overall_score = (
+        correct_count
+        / total_questions
+    )
 
     # --------------------------------------------------------
-    # Confirmed and weak skills
+    # Confirmed skills
     # --------------------------------------------------------
 
     confirmed_skills = sorted(
         {
-            response.skill_tag
+            str(response.skill_tag)
+            .strip()
+            .lower()
             for response in responses
             if response.is_correct
-        }
-    )
-
-    weak_skills = sorted(
-        {
-            response.skill_tag
-            for response in responses
-            if not response.is_correct
+            and str(
+                response.skill_tag
+            ).strip()
         }
     )
 
     # --------------------------------------------------------
-    # Difficulty tier breakdown
+    # Weak skills
+    # --------------------------------------------------------
+
+    weak_skills = sorted(
+        {
+            str(response.skill_tag)
+            .strip()
+            .lower()
+            for response in responses
+            if not response.is_correct
+            and str(
+                response.skill_tag
+            ).strip()
+        }
+    )
+
+    # --------------------------------------------------------
+    # Difficulty tier totals
     # --------------------------------------------------------
 
     tier_totals = {
@@ -181,31 +266,52 @@ def profile_learner(
 
     for response in responses:
 
-        difficulty = response.difficulty.value
+        difficulty = (
+            response.difficulty.value
+        )
 
         if difficulty not in tier_totals:
             continue
 
-        tier_totals[difficulty] += 1
+        tier_totals[
+            difficulty
+        ] += 1
 
         if response.is_correct:
-            tier_correct[difficulty] += 1
+
+            tier_correct[
+                difficulty
+            ] += 1
+
+    # --------------------------------------------------------
+    # Tier breakdown
+    # --------------------------------------------------------
 
     tier_breakdown = {}
 
     for tier in tier_totals:
 
-        if tier_totals[tier] == 0:
-            tier_breakdown[tier] = 0.0
+        total = tier_totals[
+            tier
+        ]
+
+        if total == 0:
+
+            tier_breakdown[
+                tier
+            ] = 0.0
 
         else:
-            tier_breakdown[tier] = (
+
+            tier_breakdown[
+                tier
+            ] = (
                 tier_correct[tier]
-                / tier_totals[tier]
+                / total
             )
 
     # --------------------------------------------------------
-    # Build final contract
+    # Final DiagnosticResult
     # --------------------------------------------------------
 
     return DiagnosticResult(
@@ -215,5 +321,27 @@ def profile_learner(
         weak_skills=weak_skills,
         overall_score=overall_score,
         tier_breakdown=tier_breakdown,
+        responses=responses,
+    )
+
+
+# ============================================================
+# BACKWARD-COMPATIBLE WRAPPER
+# ============================================================
+
+def profile_learner(
+    learner: LearnerProfile,
+    responses: list[QuestionResponse],
+) -> DiagnosticResult:
+    """
+    Backward-compatible wrapper.
+
+    Existing code using profile_learner()
+    continues to work while the official
+    Phase-1 function is score_diagnostic().
+    """
+
+    return score_diagnostic(
+        learner=learner,
         responses=responses,
     )
