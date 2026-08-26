@@ -43,7 +43,12 @@ QUESTION_TEMPLATES = {
 
 
 def load_skills():
-    with open(TAXONOMY_FILE, "r", encoding="utf-8") as f:
+    with open(
+        TAXONOMY_FILE,
+        "r",
+        encoding="utf-8",
+    ) as f:
+
         taxonomy = json.load(f)
 
     skills = sorted(
@@ -57,23 +62,41 @@ def load_skills():
     return skills
 
 
-def build_question(skill, index, difficulty):
-    template = QUESTION_TEMPLATES[difficulty]
+def build_question(
+    skill,
+    index,
+    difficulty,
+):
+    template = QUESTION_TEMPLATES[
+        difficulty
+    ]
 
     options = []
 
-    for option_index, text in enumerate(template["options"]):
+    for option_index, text in enumerate(
+        template["options"]
+    ):
+
         options.append(
             {
-                "option_id": chr(65 + option_index),
-                "text": text.format(skill=skill),
-                "is_correct": option_index == template["correct"],
+                "option_id": chr(
+                    65 + option_index
+                ),
+                "text": text.format(
+                    skill=skill
+                ),
+                "is_correct": (
+                    option_index
+                    == template["correct"]
+                ),
             }
         )
 
     return {
         "question_id": f"q_{index:03d}",
-        "question": template["question"].format(skill=skill),
+        "question": template[
+            "question"
+        ].format(skill=skill),
         "skill_tag": skill.lower(),
         "difficulty": difficulty,
         "options": options,
@@ -81,35 +104,106 @@ def build_question(skill, index, difficulty):
 
 
 def main():
-    print("Loading O*NET career taxonomy...")
+
+    print(
+        "Loading O*NET career taxonomy..."
+    )
 
     skills = load_skills()
 
-    print(f"O*NET unique skills: {len(skills)}")
+    print(
+        f"O*NET unique skills: {len(skills)}"
+    )
+
+    if len(skills) == 0:
+        raise ValueError(
+            "No skills found in career taxonomy."
+        )
+
+    # --------------------------------------------------------
+    # Generate exactly 45 questions
+    # --------------------------------------------------------
+
+    target_questions = 45
+
+    difficulties = [
+        "beginner",
+        "intermediate",
+        "advanced",
+    ]
 
     questions = []
 
-    for index, skill in enumerate(skills, start=1):
+    for index in range(
+        target_questions
+    ):
 
-        # Distribute questions across three difficulty levels.
-        position = (index - 1) % 3
+        skill = skills[
+            index % len(skills)
+        ]
 
-        if position == 0:
-            difficulty = "beginner"
-        elif position == 1:
-            difficulty = "intermediate"
-        else:
-            difficulty = "advanced"
+        difficulty = difficulties[
+            index % 3
+        ]
 
         questions.append(
             build_question(
                 skill=skill,
-                index=index,
+                index=index + 1,
                 difficulty=difficulty,
             )
         )
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    # --------------------------------------------------------
+    # Validate generated dataset
+    # --------------------------------------------------------
+
+    if len(questions) != 45:
+
+        raise ValueError(
+            "Question generation failed: "
+            f"expected 45, got {len(questions)}"
+        )
+
+    tier_counts = {
+        "beginner": 0,
+        "intermediate": 0,
+        "advanced": 0,
+    }
+
+    for question in questions:
+
+        tier = question[
+            "difficulty"
+        ]
+
+        if tier not in tier_counts:
+
+            raise ValueError(
+                f"Invalid difficulty tier: {tier}"
+            )
+
+        tier_counts[tier] += 1
+
+    for tier, count in tier_counts.items():
+
+        if count != 15:
+
+            raise ValueError(
+                f"{tier} must contain "
+                f"15 questions, got {count}"
+            )
+
+    # --------------------------------------------------------
+    # Write questions.json
+    # --------------------------------------------------------
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8",
+    ) as f:
+
         json.dump(
             questions,
             f,
@@ -118,11 +212,30 @@ def main():
         )
 
     print()
-    print("========================================")
-    print("QUESTION DATASET GENERATED")
-    print("========================================")
-    print(f"Questions written : {len(questions)}")
-    print(f"Output file       : {OUTPUT_FILE}")
+    print(
+        "========================================"
+    )
+    print(
+        "QUESTION DATASET GENERATED"
+    )
+    print(
+        "========================================"
+    )
+    print(
+        f"Questions written : {len(questions)}"
+    )
+    print(
+        f"Beginner          : {tier_counts['beginner']}"
+    )
+    print(
+        f"Intermediate      : {tier_counts['intermediate']}"
+    )
+    print(
+        f"Advanced          : {tier_counts['advanced']}"
+    )
+    print(
+        f"Output file       : {OUTPUT_FILE}"
+    )
 
 
 if __name__ == "__main__":
