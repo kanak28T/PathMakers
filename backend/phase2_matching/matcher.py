@@ -32,7 +32,10 @@ from contracts.schemas import (
     DifficultyLevel,
     RankedCandidateList,
     RankedCourse,
+    ScoringFeatures,
 )
+
+from ml.score import score as ml_score
 
 from backend.phase2_matching.career_matcher import (
     rank_from_diagnostic_result,
@@ -755,18 +758,31 @@ def calculate_course_score(
     relevant_skills: list[dict],
     target_difficulty: DifficultyLevel,
     career: dict | None = None,
+    learner_id: str = "",
 ) -> dict:
     """
-    Calculate deterministic course fit score.
+    Calculate course fit score using deterministic matching
+    features and the trained ML scoring model.
 
-    Components:
+    Deterministic features:
+        - skill coverage
+        - importance coverage
+        - technical relevance
+        - career-domain relevance
+        - difficulty match
+        - rating
 
-        skill coverage          30%
-        importance coverage     25%
-        technical relevance     10%
-        career-domain relevance 20%
-        difficulty match        10%
-        rating                   5%
+    ML features:
+        - gap_severity
+        - tag_similarity
+        - course_rating
+        - difficulty_match
+        - prereq_satisfaction
+
+    The trained ML scorer returns:
+        - final fit score
+        - instance-level SHAP values
+        - XAI explanation
     """
 
     course_skills = course_skill_set(
@@ -774,7 +790,6 @@ def calculate_course_score(
     )
 
     if not course_skills:
-
         return {
             "score": 0.0,
             "skill_coverage": 0.0,
@@ -783,7 +798,14 @@ def calculate_course_score(
             "career_domain_relevance": 0.0,
             "difficulty_match": 0.0,
             "rating_score": 0.0,
+            "gap_severity": 1.0,
+            "tag_similarity": 0.0,
+            "prereq_satisfaction": 0.0,
             "matched_skills": [],
+            "shap_values": {},
+            "explanation_text": (
+                "Course has no usable skill tags."
+            ),
         }
 
     matched_skills = []
@@ -830,7 +852,6 @@ def calculate_course_score(
         )
 
         if is_technical:
-
             technical_total += importance
 
         if source_skill in course_skills:
@@ -869,9 +890,10 @@ def calculate_course_score(
 
     else:
 
-        skill_coverage = (
+        skill_coverage = min(
             len(matched_skills)
-            / relevant_count
+            / relevant_count,
+            1.0,
         )
 
     # --------------------------------------------------------
@@ -952,23 +974,95 @@ def calculate_course_score(
         ),
     )
 
-    # --------------------------------------------------------
-    # Final score
-    # --------------------------------------------------------
+    # ========================================================
+    # ML FEATURE CONSTRUCTION
+    # ========================================================
 
-    score = (
-        0.30 * skill_coverage
-        + 0.25 * importance_coverage
-        + 0.10 * technical_relevance
-        + 0.20 * career_domain_relevance
-        + 0.10 * difficulty_score
-        + 0.05 * rating_score
+    # Fraction of relevant skills not covered
+    gap_severity = max(
+        0.0,
+        min(
+            1.0 - skill_coverage,
+            1.0,
+        ),
     )
 
-    return {
-        "score": min(
-            max(score, 0.0),
+    # Career-domain relevance acts as the deterministic
+    # tag/topic similarity feature.
+    tag_similarity = max(
+        0.0,
+        min(
+            career_domain_relevance,
             1.0,
+        ),
+    )
+
+    # --------------------------------------------------------
+    # Prerequisite satisfaction
+    # --------------------------------------------------------
+
+    prereq_value = course.get(
+        "prereq_ids",
+        "",
+    )
+
+    if pd.isna(prereq_value):
+
+        prereq_ids = []
+
+    else:
+
+        prereq_ids = [
+            prereq.strip()
+            for prereq in str(
+                prereq_value
+            ).split("|")
+            if prereq.strip()
+        ]
+
+    if not prereq_ids:
+
+        prereq_satisfaction = 1.0
+
+    else:
+
+        # Current Phase 2 diagnostic contract does not
+        # carry completed course IDs. Therefore prerequisite
+        # satisfaction is conservatively estimated from the
+        # matched skill coverage.
+        prereq_satisfaction = skill_coverage
+
+    # --------------------------------------------------------
+    # Build frozen ML scoring contract
+    # --------------------------------------------------------
+
+    scoring_features = ScoringFeatures(
+        course_id=str(
+            course["course_id"]
+        ),
+        learner_id=learner_id,
+        gap_severity=gap_severity,
+        tag_similarity=tag_similarity,
+        course_rating=rating,
+        difficulty_match=difficulty_score,
+        prereq_satisfaction=prereq_satisfaction,
+    )
+
+    # --------------------------------------------------------
+    # Run trained ML scorer
+    # --------------------------------------------------------
+
+    ml_result = ml_score(
+        scoring_features
+    )
+
+    # --------------------------------------------------------
+    # Final result
+    # --------------------------------------------------------
+
+    return {
+        "score": float(
+            ml_result.score
         ),
         "skill_coverage": skill_coverage,
         "importance_coverage": importance_coverage,
@@ -976,7 +1070,16 @@ def calculate_course_score(
         "career_domain_relevance": career_domain_relevance,
         "difficulty_match": difficulty_score,
         "rating_score": rating_score,
+        "gap_severity": gap_severity,
+        "tag_similarity": tag_similarity,
+        "prereq_satisfaction": prereq_satisfaction,
         "matched_skills": matched_skills,
+        "shap_values": dict(
+            ml_result.shap_values
+        ),
+        "explanation_text": (
+            ml_result.explanation_text
+        ),
     }
 
 
@@ -1045,10 +1148,14 @@ def find_course_candidates(
     target_difficulty: DifficultyLevel,
     career: dict | None = None,
     top_n: int = 20,
+    learner_id: str = "",
 ) -> list[dict]:
     """
     Find and rank courses relevant to the learner's
     prioritized career skill gaps.
+
+    Each candidate is scored using the deterministic
+    Phase 2 matching features and the trained ML scorer.
     """
 
     relevant_mappings = (
@@ -1059,7 +1166,6 @@ def find_course_candidates(
     )
 
     if not relevant_mappings:
-
         return []
 
     candidates = []
@@ -1071,6 +1177,7 @@ def find_course_candidates(
             relevant_skills=relevant_mappings,
             target_difficulty=target_difficulty,
             career=career,
+            learner_id=learner_id,
         )
 
         if result["matched_skills"]:
@@ -1140,7 +1247,6 @@ def find_course_candidates(
 
     return candidates[:top_n]
 
-
 # ============================================================
 # CONVERT TO RANKED COURSE
 # ============================================================
@@ -1152,6 +1258,9 @@ def build_ranked_course(
     """
     Convert an internal candidate into the
     frozen RankedCourse contract.
+
+    ML-generated SHAP values and explanation are
+    preserved for the frontend XAI drawer.
     """
 
     course = candidate["course"]
@@ -1162,7 +1271,6 @@ def build_ranked_course(
     )
 
     if difficulty_value == "mixed":
-
         difficulty_value = "intermediate"
 
     difficulty = DifficultyLevel(
@@ -1170,34 +1278,81 @@ def build_ranked_course(
     )
 
     skill_tags = [
-        skill
+        skill.strip()
         for skill in str(
             course["skill_tags"]
         ).split("|")
-        if skill
+        if skill.strip()
     ]
 
-    matched = result[
-        "matched_skills"
-    ]
+    # --------------------------------------------------------
+    # Preserve ML XAI output
+    # --------------------------------------------------------
 
-    if matched:
-
-        explanation = (
-            "Recommended because it aligns "
-            "with career skills: "
-            + ", ".join(
-                matched[:5]
-            )
-            + "."
+    shap_values = dict(
+        result.get(
+            "shap_values",
+            {},
         )
+    )
+
+    explanation = result.get(
+        "explanation_text",
+        "",
+    )
+
+    # Fallback explanation if ML explanation is unavailable
+    if not explanation:
+
+        matched = result.get(
+            "matched_skills",
+            [],
+        )
+
+        if matched:
+
+            explanation = (
+                "Recommended because it aligns "
+                "with career skills: "
+                + ", ".join(
+                    matched[:5]
+                )
+                + "."
+            )
+
+        else:
+
+            explanation = (
+                "Recommended based on career "
+                "skill-gap alignment."
+            )
+
+    # --------------------------------------------------------
+    # Preserve prerequisite relationships
+    # --------------------------------------------------------
+
+    prereq_value = course.get(
+        "prereq_ids",
+        "",
+    )
+
+    if pd.isna(prereq_value):
+
+        prereq_ids = []
 
     else:
 
-        explanation = (
-            "Recommended based on career "
-            "skill-gap alignment."
-        )
+        prereq_ids = [
+            prereq.strip()
+            for prereq in str(
+                prereq_value
+            ).split("|")
+            if prereq.strip()
+        ]
+
+    # --------------------------------------------------------
+    # Final frozen contract
+    # --------------------------------------------------------
 
     return RankedCourse(
         course_id=str(
@@ -1214,9 +1369,9 @@ def build_ranked_course(
         score=float(
             result["score"]
         ),
-        shap_values={},
+        shap_values=shap_values,
         explanation_text=explanation,
-        prereq_ids=[],
+        prereq_ids=prereq_ids,
         skill_tags=skill_tags,
         url=(
             ""
@@ -1224,7 +1379,6 @@ def build_ranked_course(
             else str(course["url"])
         ),
     )
-
 
 # ============================================================
 # MAIN MATCHING FUNCTION
@@ -1339,6 +1493,7 @@ def build_ranked_candidates(
         target_difficulty=target_difficulty,
         career=selected_career_details,
         top_n=top_n_courses,
+        learner_id=diagnostic.learner_id,
     )
 
     if not candidates:
