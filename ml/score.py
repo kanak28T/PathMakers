@@ -1,87 +1,59 @@
 """
 ml/score.py
 ===========
+
 PathMakers — ML Scoring Interface (Frozen Contract)
 
 OWNER: S (Person C)
-STATUS (Day 0): Stub — returns deterministic dummy values so all callers
-                compile and run without a trained model.
-STATUS (Day 2): S replaces the stub body with real HistGradientBoosting
-                inference and SHAP value computation.
+
+STATUS: Day 2 real implementation.
+Loads model.pkl trained by train.py and computes instance-level
+SHAP values using shap.TreeExplainer.
+
+Falls back to the Day-0 heuristic stub only if model.pkl is missing.
 
 CONTRACT (DO NOT CHANGE THE SIGNATURE):
-    Input  : ScoringFeatures  — Pydantic model defined in contracts/schemas.py
-    Output : ScoringResult    — Pydantic model defined in contracts/schemas.py
+    Input  : ScoringFeatures — Pydantic model defined in contracts/schemas.py
+    Output : ScoringResult   — Pydantic model defined in contracts/schemas.py
 
-CALLER PATTERN (Person A — phase2_matching/matcher.py):
-    from ml.score import score
-    from contracts.schemas import ScoringFeatures
+SHAP CONTRACT:
+    shap_values must be instance-level (per-prediction), not global
+    feature importances.
 
-    features = ScoringFeatures(
-        course_id="c_001",
-        learner_id="user_abc",
-        gap_severity=0.87,
-        tag_similarity=0.74,
-        course_rating=4.6,
-        difficulty_match=0.91,
-        prereq_satisfaction=0.50,
-    )
-    result = score(features)
-    # result.score         -> float [0, 1]
-    # result.shap_values   -> dict[feature_name, shap_float]
-    # result.explanation_text -> human-readable XAI sentence
-
-SHAP CONTRACT (Day 2 requirement):
-    shap_values must be instance-level (per-prediction), NOT global
-    feature importances.  Use shap.TreeExplainer or shap.Explainer
-    wrapping the trained HistGradientBoostingRegressor.
-    Keys must exactly match the five feature field names in ScoringFeatures:
-        gap_severity, tag_similarity, course_rating,
-        difficulty_match, prereq_satisfaction
+    Keys:
+        gap_severity
+        tag_similarity
+        course_rating
+        difficulty_match
+        prereq_satisfaction
 """
 
 from __future__ import annotations
 
-import os
 import logging
 from pathlib import Path
 
+import joblib
+import pandas as pd
+import shap
+
 from contracts.schemas import ScoringFeatures, ScoringResult
+
 
 logger = logging.getLogger(__name__)
 
-# Path where Person C will save the trained model artifact
+
+# ---------------------------------------------------------------------
+# Model configuration
+# ---------------------------------------------------------------------
+
 _MODEL_PATH = Path(__file__).parent / "model.pkl"
 
-# Module-level model cache — loaded once on first call
 _model = None
+_explainer = None
+_feature_order: list[str] | None = None
 
 
-def _load_model():
-    """
-    Lazy-load the trained model from model.pkl.
-    Returns None if the model file does not exist yet (Day 0 / Day 1 behaviour).
-    """
-    global _model
-    if _model is not None:
-        return _model
-
-    if not _MODEL_PATH.exists():
-        logger.warning(
-            "model.pkl not found at %s — score() will return stub values. "
-            "Train the model by running: python ml/train.py",
-            _MODEL_PATH,
-        )
-        return None
-
-    import pickle  # noqa: PLC0415
-    with open(_MODEL_PATH, "rb") as f:
-        _model = pickle.load(f)
-    logger.info("HistGradientBoosting model loaded from %s", _MODEL_PATH)
-    return _model
-
-
-# Ordered feature names — must stay in sync with train.py's feature column order
 _FEATURE_NAMES: list[str] = [
     "gap_severity",
     "tag_similarity",
@@ -91,25 +63,117 @@ _FEATURE_NAMES: list[str] = [
 ]
 
 
-def _features_to_array(features: ScoringFeatures) -> list[float]:
-    """Extract feature values in the canonical column order."""
-    return [
-        features.gap_severity,
-        features.tag_similarity,
-        features.course_rating / 5.0,  # normalise rating to [0, 1]
-        features.difficulty_match,
-        features.prereq_satisfaction,
-    ]
+# ---------------------------------------------------------------------
+# Model loading
+# ---------------------------------------------------------------------
+
+def _load_model():
+    """
+    Lazy-load the trained model and SHAP explainer.
+
+    Returns:
+        (model, explainer)
+
+    If model.pkl does not exist, returns:
+        (None, None)
+    """
+
+    global _model
+    global _explainer
+    global _feature_order
+
+    # Already loaded
+    if _model is not None:
+        return _model, _explainer
+
+    # Model does not exist yet
+    if not _MODEL_PATH.exists():
+        logger.warning(
+            "model.pkl not found at %s — "
+            "score() will return stub values. "
+            "Train the model using: python ml/train.py",
+            _MODEL_PATH,
+        )
+
+        return None, None
+
+    # Load the bundle created by train.py
+    bundle = joblib.load(_MODEL_PATH)
+
+    _model = bundle["model"]
+    _feature_order = bundle["feature_order"]
+
+    # Create instance-level SHAP explainer
+    _explainer = shap.TreeExplainer(_model)
+
+    logger.info(
+        "HistGradientBoosting model + SHAP explainer loaded from %s",
+        _MODEL_PATH,
+    )
+
+    return _model, _explainer
 
 
-def _build_explanation(shap_vals: dict[str, float], score: float) -> str:
+# ---------------------------------------------------------------------
+# Feature preparation
+# ---------------------------------------------------------------------
+
+def _features_to_row(features: ScoringFeatures) -> pd.DataFrame:
     """
-    Generate a human-readable XAI sentence from the top SHAP contributors.
-    Positive SHAP = pushed score up; Negative SHAP = pushed score down.
+    Convert ScoringFeatures into the exact feature format
+    expected by the trained model.
     """
-    sorted_feats = sorted(shap_vals.items(), key=lambda kv: abs(kv[1]), reverse=True)
+
+    order = _feature_order or _FEATURE_NAMES
+
+    values = {
+        "gap_severity": features.gap_severity,
+        "tag_similarity": features.tag_similarity,
+
+        # Normalize rating from [1,5] to approximately [0,1]
+        "course_rating": features.course_rating / 5.0,
+
+        "difficulty_match": features.difficulty_match,
+        "prereq_satisfaction": features.prereq_satisfaction,
+    }
+
+    return pd.DataFrame(
+        [
+            {
+                name: values[name]
+                for name in order
+            }
+        ]
+    )
+
+
+# ---------------------------------------------------------------------
+# XAI explanation
+# ---------------------------------------------------------------------
+
+def _build_explanation(
+    shap_vals: dict[str, float],
+    score: float,
+) -> str:
+    """
+    Generate a human-readable explanation based on
+    the strongest SHAP contributor.
+    """
+
+    sorted_feats = sorted(
+        shap_vals.items(),
+        key=lambda kv: abs(kv[1]),
+        reverse=True,
+    )
+
     top_name, top_val = sorted_feats[0]
-    direction = "boosted" if top_val > 0 else "penalised"
+
+    direction = (
+        "boosted"
+        if top_val > 0
+        else "penalised"
+    )
+
     readable = {
         "gap_severity": "skill gap severity",
         "tag_similarity": "topic alignment with your target role",
@@ -117,49 +181,83 @@ def _build_explanation(shap_vals: dict[str, float], score: float) -> str:
         "difficulty_match": "difficulty alignment",
         "prereq_satisfaction": "prerequisite coverage",
     }
-    feature_label = readable.get(top_name, top_name)
+
+    feature_label = readable.get(
+        top_name,
+        top_name,
+    )
+
     return (
-        f"Score {score:.2f}: primarily {direction} by {feature_label} "
+        f"Score {score:.2f}: primarily "
+        f"{direction} by {feature_label} "
         f"(SHAP {top_val:+.3f})."
     )
 
 
-def score(features: ScoringFeatures) -> ScoringResult:
+# ---------------------------------------------------------------------
+# Main scoring function
+# ---------------------------------------------------------------------
+
+def score(
+    features: ScoringFeatures,
+) -> ScoringResult:
     """
-    Predict the fit score for a (learner, course) pair.
+    Predict the fit score for a learner-course pair.
 
-    Day 0–1 behaviour (stub):
-        Returns a deterministic heuristic score based on a weighted average
-        of the input features.  All SHAP values are 0.0 placeholders.
+    Uses the trained HistGradientBoostingRegressor when model.pkl
+    is available.
 
-    Day 2+ behaviour (real model):
-        Runs HistGradientBoostingRegressor inference and computes
-        instance-level SHAP values via shap.TreeExplainer.
-
-    Args:
-        features: ScoringFeatures — all five feature fields required.
-
-    Returns:
-        ScoringResult with .score, .shap_values, and .explanation_text.
+    Falls back to the Day-0 heuristic when the model is unavailable.
     """
-    model = _load_model()
-    feature_array = _features_to_array(features)
+
+    model, explainer = _load_model()
+
+    # -----------------------------------------------------------------
+    # Fallback implementation
+    # -----------------------------------------------------------------
 
     if model is None:
-        # ----------------------------------------------------------------
-        # STUB IMPLEMENTATION (Day 0 / Day 1)
-        # Weighted average heuristic — good enough for integration testing.
-        # Replace entirely in Day 2 once model.pkl is trained.
-        # ----------------------------------------------------------------
-        weights = [0.30, 0.25, 0.15, 0.20, 0.10]
-        stub_score = float(sum(w * v for w, v in zip(weights, feature_array)))
-        stub_score = max(0.0, min(1.0, stub_score))
 
-        stub_shap: dict[str, float] = {name: 0.0 for name in _FEATURE_NAMES}
+        weights = [
+            0.30,
+            0.25,
+            0.15,
+            0.20,
+            0.10,
+        ]
+
+        feature_array = [
+            features.gap_severity,
+            features.tag_similarity,
+            features.course_rating / 5.0,
+            features.difficulty_match,
+            features.prereq_satisfaction,
+        ]
+
+        stub_score = float(
+            sum(
+                weight * value
+                for weight, value
+                in zip(weights, feature_array)
+            )
+        )
+
+        stub_score = max(
+            0.0,
+            min(1.0, stub_score),
+        )
+
+        stub_shap = {
+            name: 0.0
+            for name in _FEATURE_NAMES
+        }
+
         explanation = (
             f"[STUB] Heuristic score {stub_score:.2f} — "
-            "train the model (python ml/train.py) for real SHAP explanations."
+            "train the model (python ml/train.py) "
+            "for real SHAP explanations."
         )
+
         return ScoringResult(
             course_id=features.course_id,
             learner_id=features.learner_id,
@@ -168,25 +266,41 @@ def score(features: ScoringFeatures) -> ScoringResult:
             explanation_text=explanation,
         )
 
-    # --------------------------------------------------------------------
-    # REAL IMPLEMENTATION (Day 2+) — S fills this section
-    # --------------------------------------------------------------------
-    import numpy as np  # noqa: PLC0415
+    # -----------------------------------------------------------------
+    # Real model inference
+    # -----------------------------------------------------------------
 
-    X = np.array(feature_array).reshape(1, -1)
-    raw_score = float(model.predict(X)[0])
-    real_score = max(0.0, min(1.0, raw_score))
+    row = _features_to_row(features)
 
+    raw_score = float(
+        model.predict(row)[0]
+    )
+
+    real_score = max(
+        0.0,
+        min(1.0, raw_score),
+    )
+
+    # -----------------------------------------------------------------
     # Instance-level SHAP values
-    # S: import shap and replace this block
-    # Example:
-    #   explainer = shap.TreeExplainer(model)
-    #   shap_matrix = explainer.shap_values(X)   # shape (1, n_features)
-    #   shap_vals = dict(zip(_FEATURE_NAMES, shap_matrix[0].tolist()))
-    shap_vals: dict[str, float] = {name: 0.0 for name in _FEATURE_NAMES}
-    # TODO (S, Day 2): replace the line above with real SHAP computation
+    # -----------------------------------------------------------------
 
-    explanation = _build_explanation(shap_vals, real_score)
+    shap_row = explainer.shap_values(row)[0]
+
+    shap_vals = {
+        name: float(value)
+        for name, value
+        in zip(row.columns, shap_row)
+    }
+
+    # -----------------------------------------------------------------
+    # Human-readable explanation
+    # -----------------------------------------------------------------
+
+    explanation = _build_explanation(
+        shap_vals,
+        real_score,
+    )
 
     return ScoringResult(
         course_id=features.course_id,
@@ -194,4 +308,29 @@ def score(features: ScoringFeatures) -> ScoringResult:
         score=real_score,
         shap_values=shap_vals,
         explanation_text=explanation,
+    )
+
+
+# ---------------------------------------------------------------------
+# Local test
+# ---------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+    sample = ScoringFeatures(
+        course_id="c_001",
+        learner_id="user_abc",
+        gap_severity=0.87,
+        tag_similarity=0.74,
+        course_rating=4.6,
+        difficulty_match=0.91,
+        prereq_satisfaction=0.50,
+    )
+
+    result = score(sample)
+
+    print(
+        result.model_dump_json(
+            indent=2
+        )
     )
