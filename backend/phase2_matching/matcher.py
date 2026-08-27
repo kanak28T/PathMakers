@@ -759,39 +759,73 @@ def calculate_course_score(
     target_difficulty: DifficultyLevel,
     career: dict | None = None,
     learner_id: str = "",
+    alpha: float = 0.70,
 ) -> dict:
     """
-    Calculate course fit score using deterministic matching
-    features and the trained ML scoring model.
+    Calculate hybrid course fit score.
 
-    Deterministic features:
-        - skill coverage
-        - importance coverage
-        - technical relevance
-        - career-domain relevance
-        - difficulty match
-        - rating
+    Final score:
 
-    ML features:
-        - gap_severity
-        - tag_similarity
-        - course_rating
-        - difficulty_match
-        - prereq_satisfaction
+        hybrid_score =
+            alpha * ML model score
+            + (1 - alpha) * deterministic/user-weight score
 
-    The trained ML scorer returns:
-        - final fit score
-        - instance-level SHAP values
-        - XAI explanation
+    Current deterministic/user-weight components:
+
+        skill coverage          30%
+        importance coverage     25%
+        technical relevance     10%
+        career-domain relevance 20%
+        difficulty match        10%
+        rating                   5%
+
+    ML component:
+
+        ScoringFeatures
+        -> ml.score()
+        -> trained model prediction
+        -> instance-level SHAP values
+
+    Args:
+        course: Course row from courses.csv.
+        relevant_skills: Prioritized O*NET skill mappings.
+        target_difficulty: Learner's target difficulty level.
+        career: Selected career taxonomy entry.
+        learner_id: Learner identifier for ML scoring.
+        alpha: Weight given to ML model score.
+
+    Returns:
+        Dictionary containing hybrid score, deterministic
+        features, ML score, SHAP values and explanation.
     """
+
+    # --------------------------------------------------------
+    # Validate alpha
+    # --------------------------------------------------------
+
+    alpha = max(
+        0.0,
+        min(
+            float(alpha),
+            1.0,
+        ),
+    )
+
+    # --------------------------------------------------------
+    # Course skills
+    # --------------------------------------------------------
 
     course_skills = course_skill_set(
         course["skill_tags"]
     )
 
     if not course_skills:
+
         return {
             "score": 0.0,
+            "user_weight_score": 0.0,
+            "model_score": 0.0,
+            "alpha": alpha,
             "skill_coverage": 0.0,
             "importance_coverage": 0.0,
             "technical_relevance": 0.0,
@@ -803,9 +837,7 @@ def calculate_course_score(
             "prereq_satisfaction": 0.0,
             "matched_skills": [],
             "shap_values": {},
-            "explanation_text": (
-                "Course has no usable skill tags."
-            ),
+            "explanation_text": "",
         }
 
     matched_skills = []
@@ -852,6 +884,7 @@ def calculate_course_score(
         )
 
         if is_technical:
+
             technical_total += importance
 
         if source_skill in course_skills:
@@ -974,11 +1007,31 @@ def calculate_course_score(
         ),
     )
 
-    # ========================================================
-    # ML FEATURE CONSTRUCTION
-    # ========================================================
+    # --------------------------------------------------------
+    # Deterministic / user-weight score
+    # --------------------------------------------------------
 
-    # Fraction of relevant skills not covered
+    user_weight_score = (
+        0.30 * skill_coverage
+        + 0.25 * importance_coverage
+        + 0.10 * technical_relevance
+        + 0.20 * career_domain_relevance
+        + 0.10 * difficulty_score
+        + 0.05 * rating_score
+    )
+
+    user_weight_score = max(
+        0.0,
+        min(
+            user_weight_score,
+            1.0,
+        ),
+    )
+
+    # --------------------------------------------------------
+    # Gap severity
+    # --------------------------------------------------------
+
     gap_severity = max(
         0.0,
         min(
@@ -987,12 +1040,57 @@ def calculate_course_score(
         ),
     )
 
-    # Career-domain relevance acts as the deterministic
-    # tag/topic similarity feature.
+    # --------------------------------------------------------
+    # Tag similarity
+    # --------------------------------------------------------
+
+    if career is None:
+
+        tag_similarity = 0.0
+
+    else:
+
+        career_required_skills = {
+            normalize_skill(
+                skill.get(
+                    "skill_name",
+                    "",
+                )
+            )
+            for skill in career.get(
+                "required_skills",
+                [],
+            )
+        }
+
+        career_required_skills.discard("")
+
+        if not career_required_skills:
+
+            tag_similarity = 0.0
+
+        else:
+
+            tag_similarity = (
+                len(
+                    course_skills
+                    & career_required_skills
+                )
+                / len(
+                    course_skills
+                    | career_required_skills
+                )
+                if (
+                    course_skills
+                    | career_required_skills
+                )
+                else 0.0
+            )
+
     tag_similarity = max(
         0.0,
         min(
-            career_domain_relevance,
+            float(tag_similarity),
             1.0,
         ),
     )
@@ -1006,31 +1104,29 @@ def calculate_course_score(
         "",
     )
 
-    if pd.isna(prereq_value):
-
-        prereq_ids = []
-
-    else:
-
-        prereq_ids = [
-            prereq.strip()
-            for prereq in str(
-                prereq_value
-            ).split("|")
-            if prereq.strip()
-        ]
-
-    if not prereq_ids:
+    if (
+        pd.isna(prereq_value)
+        or not str(
+            prereq_value
+        ).strip()
+    ):
 
         prereq_satisfaction = 1.0
 
     else:
 
-        # Current Phase 2 diagnostic contract does not
-        # carry completed course IDs. Therefore prerequisite
-        # satisfaction is conservatively estimated from the
-        # matched skill coverage.
+        # Current DiagnosticResult does not contain
+        # completed course IDs. Therefore use matched
+        # skill coverage as a conservative proxy.
         prereq_satisfaction = skill_coverage
+
+    prereq_satisfaction = max(
+        0.0,
+        min(
+            float(prereq_satisfaction),
+            1.0,
+        ),
+    )
 
     # --------------------------------------------------------
     # Build frozen ML scoring contract
@@ -1056,27 +1152,81 @@ def calculate_course_score(
         scoring_features
     )
 
+    model_score = max(
+        0.0,
+        min(
+            float(ml_result.score),
+            1.0,
+        ),
+    )
+
+    # --------------------------------------------------------
+    # HYBRID FINAL SCORE
+    # --------------------------------------------------------
+
+    hybrid_score = (
+        alpha * model_score
+        + (1.0 - alpha)
+        * user_weight_score
+    )
+
+    hybrid_score = max(
+        0.0,
+        min(
+            hybrid_score,
+            1.0,
+        ),
+    )
+
     # --------------------------------------------------------
     # Final result
     # --------------------------------------------------------
 
     return {
-        "score": float(
-            ml_result.score
+        "score": hybrid_score,
+
+        "user_weight_score": (
+            user_weight_score
         ),
+
+        "model_score": model_score,
+
+        "alpha": alpha,
+
         "skill_coverage": skill_coverage,
-        "importance_coverage": importance_coverage,
-        "technical_relevance": technical_relevance,
-        "career_domain_relevance": career_domain_relevance,
-        "difficulty_match": difficulty_score,
+
+        "importance_coverage": (
+            importance_coverage
+        ),
+
+        "technical_relevance": (
+            technical_relevance
+        ),
+
+        "career_domain_relevance": (
+            career_domain_relevance
+        ),
+
+        "difficulty_match": (
+            difficulty_score
+        ),
+
         "rating_score": rating_score,
+
         "gap_severity": gap_severity,
+
         "tag_similarity": tag_similarity,
-        "prereq_satisfaction": prereq_satisfaction,
+
+        "prereq_satisfaction": (
+            prereq_satisfaction
+        ),
+
         "matched_skills": matched_skills,
+
         "shap_values": dict(
             ml_result.shap_values
         ),
+
         "explanation_text": (
             ml_result.explanation_text
         ),
