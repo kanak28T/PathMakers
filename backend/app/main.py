@@ -1,26 +1,17 @@
 """
 backend/app/main.py
 ===================
-PathMakers — FastAPI Application Shell
+PathMakers — FastAPI Application
 
 OWNER: K (Team Lead / Person B)
-DAY 0 STATUS: Mock router only.
-  - All endpoints return static data from contracts/mock_*.json.
-  - Real phase implementations are wired in Day 1–3 by K.
 
-STARTUP BEHAVIOUR:
-  - SQLite database is opened in WAL (Write-Ahead Logging) mode to prevent
-    'database is locked' errors under concurrent read/write during demo.
-  - CORS is configured to allow the Next.js dev server (localhost:3000).
-  - Lifespan context manager initialises the DB connection once at startup.
-
-ENDPOINTS (Day 0 — all return mock data):
+ENDPOINTS:
   GET  /health                          -> HealthResponse
-  GET  /api/roadmap/mock                -> RoadmapGraphResponse (from mock_roadmap.json)
-  GET  /api/roadmap/patch/mock          -> RoadmapPatchEvent   (from mock_patch.json)
-  POST /api/roadmap/generate            -> RoadmapGraphResponse (stub -> real in Day 3)
-  POST /api/roadmap/recalibrate         -> RoadmapPatchEvent   (stub -> real in Day 3)
-  GET  /api/roadmap/stream/{learner_id} -> SSE stream           (stub -> real in Day 2)
+  GET  /api/roadmap/mock                -> RoadmapGraphResponse (mock, always available)
+  GET  /api/roadmap/patch/mock          -> RoadmapPatchEvent   (mock, always available)
+  POST /api/roadmap/generate            -> RoadmapGraphResponse (real pipeline: Phase 2 → Phase 3)
+  POST /api/roadmap/recalibrate         -> RoadmapPatchEvent   (stub — Phase 4 wired Day 2)
+  GET  /api/roadmap/stream/{learner_id} -> SSE stream           (stub — Phase 4 wired Day 2)
 """
 
 from __future__ import annotations
@@ -44,6 +35,8 @@ from contracts.schemas import (
     RoadmapGraphResponse,
     RoadmapPatchEvent,
 )
+from backend.phase2_matching.matcher import build_ranked_candidates
+from backend.phase3_graph.graph_builder import GraphCycleError, build_graph
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -142,7 +135,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="PathMakers API",
     description="AI-powered personalised learning path recommender — backend service.",
-    version="0.1.0-day0",
+    version="0.2.0-day1",
     lifespan=lifespan,
 )
 
@@ -248,22 +241,38 @@ async def get_mock_patch() -> dict:
     tags=["Roadmap"],
     summary="Generate a personalised roadmap from a diagnostic result",
 )
-async def generate_roadmap(diagnostic: DiagnosticResult) -> dict:
+async def generate_roadmap(diagnostic: DiagnosticResult) -> RoadmapGraphResponse:
     """
-    Day 0: Returns mock data regardless of input.
-    Day 1 (K): Wire to phase3_graph.graph_builder.build_graph(ranked_candidates).
-    Day 3 (K): Full pipeline — Phase 1 score → Phase 2 ML rank → Phase 3 DAG.
+    Full pipeline: Phase 2 (matcher) → Phase 3 (graph builder).
 
-    Expects a DiagnosticResult produced by Phase 1.
-    Returns a RoadmapGraphResponse for the React Flow canvas.
+    Phase 1 (profiler) runs on the client before this call —
+    the DiagnosticResult it produces is passed directly here.
+
+    Raises HTTP 422 if the candidate prereq_ids form a cycle.
+    Raises HTTP 500 if the matcher finds no courses for the learner.
     """
-    # TODO (K, Day 1): Replace with real pipeline call
-    # from backend.phase2_matching.matcher import rank_candidates
-    # from backend.phase3_graph.graph_builder import build_graph
-    # ranked = rank_candidates(diagnostic)
-    # return build_graph(ranked)
-    logger.info("generate_roadmap called for learner %s [STUB]", diagnostic.learner_id)
-    return _load_mock("mock_roadmap.json")
+    try:
+        ranked: RankedCandidateList = build_ranked_candidates(diagnostic)
+    except ValueError as exc:
+        logger.error("Matcher error for learner %s: %s", diagnostic.learner_id, exc)
+        raise HTTPException(status_code=500, detail=str(exc))
+
+    try:
+        graph: RoadmapGraphResponse = build_graph(ranked)
+    except GraphCycleError as exc:
+        logger.error("Cycle detected for learner %s: %s", diagnostic.learner_id, exc)
+        raise HTTPException(
+            status_code=422,
+            detail={"error": "prerequisite_cycle", "cycle": exc.cycle},
+        )
+
+    logger.info(
+        "generate_roadmap complete — learner=%s nodes=%d edges=%d",
+        diagnostic.learner_id,
+        len(graph.nodes),
+        len(graph.edges),
+    )
+    return graph
 
 
 @app.post(
