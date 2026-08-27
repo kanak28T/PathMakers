@@ -1,0 +1,42 @@
+{
+  "gap_severity": {
+    "mean_abs_shap": 0.047570069626734574,
+    "mean_shap": -0.0028163896446586787,
+    "positive_fraction": 0.5,
+    "negative_fraction": 0.5,
+    "min_shap": -0.13015877556437094,
+    "max_shap": 0.10949035451233932
+  },
+  "tag_similarity": {
+    "mean_abs_shap": 0.04662918345166613,
+    "mean_shap": 0.00020153732714552452,
+    "positive_fraction": 0.51,
+    "negative_fraction": 0.49,
+    "min_shap": -0.12927775948979311,
+    "max_shap": 0.10923496048189033
+  },
+  "course_rating": {
+    "mean_abs_shap": 0.010842186936602844,
+    "mean_shap": 0.00041427757988990406,
+    "positive_fraction": 0.5266666666666666,
+    "negative_fraction": 0.47333333333333333,
+    "min_shap": -0.04281082069483844,
+    "max_shap": 0.028712090533475308
+  },
+  "difficulty_match": {
+    "mean_abs_shap": 0.04164009076351054,
+    "mean_shap": 0.001548840142527836,
+    "positive_fraction": 0.5666666666666667,
+    "negative_fraction": 0.43333333333333335,
+    "min_shap": -0.15625140392649722,
+    "max_shap": 0.10820488064082676
+  },
+  "prereq_satisfaction": {
+    "mean_abs_shap": 0.029417409409536882,
+    "mean_shap": 0.0031850379655157914,
+    "positive_fraction": 0.6333333333333333,
+    "negative_fraction": 0.36666666666666664,
+    "min_shap": -0.17789543729844987,
+    "max_shap": 0.057874910074419944
+  }
+}
