@@ -1,0 +1,52 @@
+﻿canonical_skill,source_skill,source,mapping_method,confidence_score
+active listening,active listening,O*NET/Coursera,exact,1.0
+complex problem solving,complex problem solving,O*NET/Coursera,exact,1.0
+critical thinking,critical thinking,O*NET/Coursera,exact,1.0
+learning strategies,learning strategies,O*NET/Coursera,exact,1.0
+negotiation,negotiation,O*NET/Coursera,exact,1.0
+systems analysis,systems analysis,O*NET/Coursera,exact,1.0
+time management,time management,O*NET/Coursera,exact,1.0
+writing,writing,O*NET/Coursera,exact,1.0
+active learning,interactive learning,O*NET/Coursera,controlled_alias,0.9
+coordination,project coordination,O*NET/Coursera,controlled_alias,0.9
+installation,software installation,O*NET/Coursera,controlled_alias,0.9
+instructing,instructional design,O*NET/Coursera,controlled_alias,0.9
+judgment and decision making,decision making,O*NET/Coursera,controlled_alias,0.9
+management of financial resources,financial management,O*NET/Coursera,controlled_alias,0.9
+management of material resources,materials management,O*NET/Coursera,controlled_alias,0.9
+management of material resources,resource management,O*NET/Coursera,controlled_alias,0.9
+management of personnel resources,people management,O*NET/Coursera,controlled_alias,0.9
+mathematics,advanced mathematics,O*NET/Coursera,controlled_alias,0.9
+mathematics,applied mathematics,O*NET/Coursera,controlled_alias,0.9
+mathematics,business mathematics,O*NET/Coursera,controlled_alias,0.9
+mathematics,mathematics and mathematical modeling,O*NET/Coursera,controlled_alias,0.9
+monitoring,continuous monitoring,O*NET/Coursera,controlled_alias,0.9
+monitoring,event monitoring,O*NET/Coursera,controlled_alias,0.9
+monitoring,network monitoring,O*NET/Coursera,controlled_alias,0.9
+monitoring,quality monitoring,O*NET/Coursera,controlled_alias,0.9
+monitoring,system monitoring,O*NET/Coursera,controlled_alias,0.9
+operation and control,operations management,O*NET/Coursera,controlled_alias,0.9
+operation and control,process control,O*NET/Coursera,controlled_alias,0.9
+operations analysis,business analysis,O*NET/Coursera,controlled_alias,0.9
+operations analysis,operations research,O*NET/Coursera,controlled_alias,0.9
+operations monitoring,system monitoring,O*NET/Coursera,controlled_alias,0.9
+persuasion,persuasive communication,O*NET/Coursera,controlled_alias,0.9
+programming,computer programming,O*NET/Coursera,controlled_alias,0.9
+programming,computer programming tools,O*NET/Coursera,controlled_alias,0.9
+programming,java programming,O*NET/Coursera,controlled_alias,0.9
+programming,javascript,O*NET/Coursera,controlled_alias,0.9
+programming,object oriented programming (oop),O*NET/Coursera,controlled_alias,0.9
+programming,python programming,O*NET/Coursera,controlled_alias,0.9
+programming,r programming,O*NET/Coursera,controlled_alias,0.9
+quality control analysis,quality control,O*NET/Coursera,controlled_alias,0.9
+science,general science and research,O*NET/Coursera,controlled_alias,0.9
+science,science and research,O*NET/Coursera,controlled_alias,0.9
+service orientation,customer service,O*NET/Coursera,controlled_alias,0.9
+social perceptiveness,emotional intelligence,O*NET/Coursera,controlled_alias,0.9
+speaking,public speaking,O*NET/Coursera,controlled_alias,0.9
+technology design,software architecture,O*NET/Coursera,controlled_alias,0.9
+technology design,software design,O*NET/Coursera,controlled_alias,0.9
+technology design,systems design,O*NET/Coursera,controlled_alias,0.9
+troubleshooting,debugging,O*NET/Coursera,controlled_alias,0.9
+troubleshooting,hardware troubleshooting,O*NET/Coursera,controlled_alias,0.9
+troubleshooting,network troubleshooting,O*NET/Coursera,controlled_alias,0.9

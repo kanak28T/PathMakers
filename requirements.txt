@@ -1,0 +1,21 @@
+# PathMakers — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Web framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+
+# Data validation
+pydantic==2.10.3
+
+# Data processing
+pandas==2.2.3
+numpy==1.26.4
+
+# ML
+scikit-learn==1.5.2
+shap==0.46.0
+joblib==1.4.2
+
+# HTTP (for any outbound calls)
+httpx==0.28.0

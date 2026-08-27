@@ -1,0 +1,1107 @@
+﻿{
+  "computer_systems_analyst": {
+    "career_id": "computer_systems_analyst",
+    "career_name": "Computer Systems Analysts",
+    "onet_soc_codes": [
+      "15-1211.00"
+    ],
+    "description": "Analyze science, engineering, business, and other data processing problems to develop and implement solutions to complex applications problems, system administration issues, or network concerns. Perform systems management and integration functions, improve existing computer systems, and review computer system capabilities, workflow, and schedule limitations. May analyze or recommend commercially available software.",
+    "required_skills": [
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.a",
+        "skill_name": "Reading Comprehension",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.b",
+        "skill_name": "Active Listening",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.c",
+        "skill_name": "Writing",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.d",
+        "skill_name": "Speaking",
+        "importance": 4.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.e",
+        "skill_name": "Mathematics",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.1.f",
+        "skill_name": "Science",
+        "importance": 2.25
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.2.a",
+        "skill_name": "Critical Thinking",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.2.b",
+        "skill_name": "Active Learning",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.2.c",
+        "skill_name": "Learning Strategies",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.A.2.d",
+        "skill_name": "Monitoring",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.a",
+        "skill_name": "Social Perceptiveness",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.b",
+        "skill_name": "Coordination",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.c",
+        "skill_name": "Persuasion",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.d",
+        "skill_name": "Negotiation",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.e",
+        "skill_name": "Instructing",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.1.f",
+        "skill_name": "Service Orientation",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.2.i",
+        "skill_name": "Complex Problem Solving",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.a",
+        "skill_name": "Operations Analysis",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.b",
+        "skill_name": "Technology Design",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.c",
+        "skill_name": "Equipment Selection",
+        "importance": 2.25
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.d",
+        "skill_name": "Installation",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.e",
+        "skill_name": "Programming",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.g",
+        "skill_name": "Operations Monitoring",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.h",
+        "skill_name": "Operation and Control",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.j",
+        "skill_name": "Equipment Maintenance",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.k",
+        "skill_name": "Troubleshooting",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.l",
+        "skill_name": "Repairing",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.3.m",
+        "skill_name": "Quality Control Analysis",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.4.e",
+        "skill_name": "Judgment and Decision Making",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.4.g",
+        "skill_name": "Systems Analysis",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.4.h",
+        "skill_name": "Systems Evaluation",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.5.a",
+        "skill_name": "Time Management",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.5.b",
+        "skill_name": "Management of Financial Resources",
+        "importance": 2.12
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.5.c",
+        "skill_name": "Management of Material Resources",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1211.00",
+        "element_id": "2.B.5.d",
+        "skill_name": "Management of Personnel Resources",
+        "importance": 2.88
+      }
+    ],
+    "source": "O*NET 29.0"
+  },
+  "database_architect": {
+    "career_id": "database_architect",
+    "career_name": "Database Architects",
+    "onet_soc_codes": [
+      "15-1243.00"
+    ],
+    "description": "Design strategies for enterprise databases, data warehouse systems, and multidimensional networks. Set standards for database operations, programming, query processes, and security. Model, design, and construct large relational databases or data warehouses. Create and optimize data models for warehouse infrastructure and workflow. Integrate new systems with existing warehouse structure and refine system performance and functionality.",
+    "required_skills": [
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.a",
+        "skill_name": "Reading Comprehension",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.b",
+        "skill_name": "Active Listening",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.c",
+        "skill_name": "Writing",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.d",
+        "skill_name": "Speaking",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.e",
+        "skill_name": "Mathematics",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.1.f",
+        "skill_name": "Science",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.2.a",
+        "skill_name": "Critical Thinking",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.2.b",
+        "skill_name": "Active Learning",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.2.c",
+        "skill_name": "Learning Strategies",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.A.2.d",
+        "skill_name": "Monitoring",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.a",
+        "skill_name": "Social Perceptiveness",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.b",
+        "skill_name": "Coordination",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.c",
+        "skill_name": "Persuasion",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.d",
+        "skill_name": "Negotiation",
+        "importance": 2.62
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.e",
+        "skill_name": "Instructing",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.1.f",
+        "skill_name": "Service Orientation",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.2.i",
+        "skill_name": "Complex Problem Solving",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.a",
+        "skill_name": "Operations Analysis",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.b",
+        "skill_name": "Technology Design",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.c",
+        "skill_name": "Equipment Selection",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.d",
+        "skill_name": "Installation",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.e",
+        "skill_name": "Programming",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.g",
+        "skill_name": "Operations Monitoring",
+        "importance": 2.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.h",
+        "skill_name": "Operation and Control",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.j",
+        "skill_name": "Equipment Maintenance",
+        "importance": 1.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.k",
+        "skill_name": "Troubleshooting",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.l",
+        "skill_name": "Repairing",
+        "importance": 1.12
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.3.m",
+        "skill_name": "Quality Control Analysis",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.4.e",
+        "skill_name": "Judgment and Decision Making",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.4.g",
+        "skill_name": "Systems Analysis",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.4.h",
+        "skill_name": "Systems Evaluation",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.5.a",
+        "skill_name": "Time Management",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.5.b",
+        "skill_name": "Management of Financial Resources",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.5.c",
+        "skill_name": "Management of Material Resources",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1243.00",
+        "element_id": "2.B.5.d",
+        "skill_name": "Management of Personnel Resources",
+        "importance": 2.5
+      }
+    ],
+    "source": "O*NET 29.0"
+  },
+  "web_developer": {
+    "career_id": "web_developer",
+    "career_name": "Web Developers",
+    "onet_soc_codes": [
+      "15-1254.00"
+    ],
+    "description": "Develop and implement websites, web applications, application databases, and interactive web interfaces. Evaluate code to ensure that it is properly structured, meets industry standards, and is compatible with browsers and devices. Optimize website performance, scalability, and server-side code and processes. May develop website infrastructure and integrate websites with other computer applications.",
+    "required_skills": [
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.a",
+        "skill_name": "Reading Comprehension",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.b",
+        "skill_name": "Active Listening",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.c",
+        "skill_name": "Writing",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.d",
+        "skill_name": "Speaking",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.e",
+        "skill_name": "Mathematics",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.1.f",
+        "skill_name": "Science",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.2.a",
+        "skill_name": "Critical Thinking",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.2.b",
+        "skill_name": "Active Learning",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.2.c",
+        "skill_name": "Learning Strategies",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.A.2.d",
+        "skill_name": "Monitoring",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.a",
+        "skill_name": "Social Perceptiveness",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.b",
+        "skill_name": "Coordination",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.c",
+        "skill_name": "Persuasion",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.d",
+        "skill_name": "Negotiation",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.e",
+        "skill_name": "Instructing",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.1.f",
+        "skill_name": "Service Orientation",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.2.i",
+        "skill_name": "Complex Problem Solving",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.a",
+        "skill_name": "Operations Analysis",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.b",
+        "skill_name": "Technology Design",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.c",
+        "skill_name": "Equipment Selection",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.d",
+        "skill_name": "Installation",
+        "importance": 1.25
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.e",
+        "skill_name": "Programming",
+        "importance": 4.12
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.g",
+        "skill_name": "Operations Monitoring",
+        "importance": 2.25
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.h",
+        "skill_name": "Operation and Control",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.j",
+        "skill_name": "Equipment Maintenance",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.k",
+        "skill_name": "Troubleshooting",
+        "importance": 2.12
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.l",
+        "skill_name": "Repairing",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.3.m",
+        "skill_name": "Quality Control Analysis",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.4.e",
+        "skill_name": "Judgment and Decision Making",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.4.g",
+        "skill_name": "Systems Analysis",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.4.h",
+        "skill_name": "Systems Evaluation",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.5.a",
+        "skill_name": "Time Management",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.5.b",
+        "skill_name": "Management of Financial Resources",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.5.c",
+        "skill_name": "Management of Material Resources",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-1254.00",
+        "element_id": "2.B.5.d",
+        "skill_name": "Management of Personnel Resources",
+        "importance": 2.38
+      }
+    ],
+    "source": "O*NET 29.0"
+  },
+  "business_intelligence_analyst": {
+    "career_id": "business_intelligence_analyst",
+    "career_name": "Business Intelligence Analysts",
+    "onet_soc_codes": [
+      "15-2051.01"
+    ],
+    "description": "Produce financial and market intelligence by querying data repositories and generating periodic reports. Devise methods for identifying data patterns and trends in available information sources.",
+    "required_skills": [
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.a",
+        "skill_name": "Reading Comprehension",
+        "importance": 4.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.b",
+        "skill_name": "Active Listening",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.c",
+        "skill_name": "Writing",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.d",
+        "skill_name": "Speaking",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.e",
+        "skill_name": "Mathematics",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.1.f",
+        "skill_name": "Science",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.2.a",
+        "skill_name": "Critical Thinking",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.2.b",
+        "skill_name": "Active Learning",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.2.c",
+        "skill_name": "Learning Strategies",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.A.2.d",
+        "skill_name": "Monitoring",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.a",
+        "skill_name": "Social Perceptiveness",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.b",
+        "skill_name": "Coordination",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.c",
+        "skill_name": "Persuasion",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.d",
+        "skill_name": "Negotiation",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.e",
+        "skill_name": "Instructing",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.1.f",
+        "skill_name": "Service Orientation",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.2.i",
+        "skill_name": "Complex Problem Solving",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.a",
+        "skill_name": "Operations Analysis",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.b",
+        "skill_name": "Technology Design",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.c",
+        "skill_name": "Equipment Selection",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.d",
+        "skill_name": "Installation",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.e",
+        "skill_name": "Programming",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.g",
+        "skill_name": "Operations Monitoring",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.h",
+        "skill_name": "Operation and Control",
+        "importance": 1.38
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.j",
+        "skill_name": "Equipment Maintenance",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.k",
+        "skill_name": "Troubleshooting",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.l",
+        "skill_name": "Repairing",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.3.m",
+        "skill_name": "Quality Control Analysis",
+        "importance": 2.0
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.4.e",
+        "skill_name": "Judgment and Decision Making",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.4.g",
+        "skill_name": "Systems Analysis",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.4.h",
+        "skill_name": "Systems Evaluation",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.5.a",
+        "skill_name": "Time Management",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.5.b",
+        "skill_name": "Management of Financial Resources",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.5.c",
+        "skill_name": "Management of Material Resources",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-2051.01",
+        "element_id": "2.B.5.d",
+        "skill_name": "Management of Personnel Resources",
+        "importance": 2.12
+      }
+    ],
+    "source": "O*NET 29.0"
+  },
+  "clinical_data_manager": {
+    "career_id": "clinical_data_manager",
+    "career_name": "Clinical Data Managers",
+    "onet_soc_codes": [
+      "15-2051.02"
+    ],
+    "description": "Apply knowledge of health care and database management to analyze clinical data, and to identify and report trends.",
+    "required_skills": [
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.a",
+        "skill_name": "Reading Comprehension",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.b",
+        "skill_name": "Active Listening",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.c",
+        "skill_name": "Writing",
+        "importance": 3.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.d",
+        "skill_name": "Speaking",
+        "importance": 3.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.e",
+        "skill_name": "Mathematics",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.1.f",
+        "skill_name": "Science",
+        "importance": 2.38
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.2.a",
+        "skill_name": "Critical Thinking",
+        "importance": 4.0
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.2.b",
+        "skill_name": "Active Learning",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.2.c",
+        "skill_name": "Learning Strategies",
+        "importance": 2.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.A.2.d",
+        "skill_name": "Monitoring",
+        "importance": 3.62
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.a",
+        "skill_name": "Social Perceptiveness",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.b",
+        "skill_name": "Coordination",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.c",
+        "skill_name": "Persuasion",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.d",
+        "skill_name": "Negotiation",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.e",
+        "skill_name": "Instructing",
+        "importance": 3.0
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.1.f",
+        "skill_name": "Service Orientation",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.2.i",
+        "skill_name": "Complex Problem Solving",
+        "importance": 3.5
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.a",
+        "skill_name": "Operations Analysis",
+        "importance": 2.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.b",
+        "skill_name": "Technology Design",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.c",
+        "skill_name": "Equipment Selection",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.d",
+        "skill_name": "Installation",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.e",
+        "skill_name": "Programming",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.g",
+        "skill_name": "Operations Monitoring",
+        "importance": 2.12
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.h",
+        "skill_name": "Operation and Control",
+        "importance": 1.75
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.j",
+        "skill_name": "Equipment Maintenance",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.k",
+        "skill_name": "Troubleshooting",
+        "importance": 1.62
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.l",
+        "skill_name": "Repairing",
+        "importance": 1.0
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.3.m",
+        "skill_name": "Quality Control Analysis",
+        "importance": 2.5
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.4.e",
+        "skill_name": "Judgment and Decision Making",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.4.g",
+        "skill_name": "Systems Analysis",
+        "importance": 3.25
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.4.h",
+        "skill_name": "Systems Evaluation",
+        "importance": 3.12
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.5.a",
+        "skill_name": "Time Management",
+        "importance": 3.38
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.5.b",
+        "skill_name": "Management of Financial Resources",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.5.c",
+        "skill_name": "Management of Material Resources",
+        "importance": 1.88
+      },
+      {
+        "soc_code": "15-2051.02",
+        "element_id": "2.B.5.d",
+        "skill_name": "Management of Personnel Resources",
+        "importance": 3.0
+      }
+    ],
+    "source": "O*NET 29.0"
+  }
+}
